@@ -12,10 +12,23 @@ if [ ! -f "$(which go)" ]; then
 fi
 
 
+chosenDay="$(find ./* -type d | fzf)"
+
+if [ -z $chosenDay ]; then
+    echo "nothing was selected.  closing program" >&2
+    exit 0
+fi
+
+cd $chosenDay
+
+chosenInput="$(find . -iname "*.txt" | fzf)"
+
+if [ -z $chosenInput ]; then
+    echo "nothing was selected.  closing program" >&2
+    exit 0
+fi
+
 go mod tidy
 
-chosen="$(find . -iname "*.go" | fzf)"
-
-
-go run $chosen
+go run main.go $chosenInput
 
