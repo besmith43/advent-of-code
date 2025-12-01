@@ -7,5 +7,5 @@ import (
 
 func main() {
 	inputFile := os.Args[1]
-	fmt.Println(inputFile)
+	fmt.Println(fmt.Sprintf("input file: %s", inputFile))
 }
