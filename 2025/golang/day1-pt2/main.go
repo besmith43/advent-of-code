@@ -10,6 +10,8 @@ import (
 	"github.com/bitfield/script"
 )
 
+var count int = 0
+
 func main() {
 	if len(os.Args) < 2 {
 		fmt.Println("no input file was passed in")
@@ -38,16 +40,17 @@ func main() {
 	lines := strings.Split(contents, "\n")
 
 	var point int = 50
-	var count int = 0
 
 	// Iterate over the resulting slice of lines
 	for i, line := range lines {
 		fmt.Printf("Line %d: %s\n", i+1, line)
 		point = turnLock(point, line)
 
-		if point == 0 {
-			count++
-		}
+		// if point == 0 {
+		// count++
+		// }
+
+		fmt.Printf("point: %d\n", point)
 	}
 
 	fmt.Printf("the password is %d", count)
@@ -90,6 +93,9 @@ func goLeft(point int, num int) int {
 			point = 99
 		} else {
 			point--
+			if point == 0 {
+				count++
+			}
 		}
 	}
 	return point
@@ -99,6 +105,7 @@ func goRight(point int, num int) int {
 	for i := 0; i < num; i++ {
 		if point == 99 {
 			point = 0
+			count++
 		} else {
 			point++
 		}

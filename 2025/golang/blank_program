@@ -3,9 +3,40 @@ package main
 import (
 	"fmt"
 	"os"
+	"strings"
+
+	"github.com/bitfield/script"
 )
 
 func main() {
+	if len(os.Args) < 2 {
+		fmt.Println("no input file was passed in")
+		os.Exit(1)
+	}
+
 	inputFile := os.Args[1]
-	fmt.Println(fmt.Sprintf("input file: %s", inputFile))
+
+	if inputFile == "" {
+		fmt.Println("no input file was passed in")
+		os.Exit(1)
+	}
+
+	fmt.Printf("input file: %s\n", inputFile)
+
+	contents, err := script.File(inputFile).String()
+	if err != nil {
+		fmt.Println("failed to read the contents of input file")
+		os.Exit(1)
+	}
+
+	// fmt.Printf("contents variable type: %T\n", contents)
+	// fmt.Printf("contents of input file: %s\n", contents)
+
+	// Split the string by the newline character
+	lines := strings.Split(contents, "\n")
+
+	// Iterate over the resulting slice of lines
+	for i, line := range lines {
+		fmt.Printf("Line %d: %s\n", i+1, line)
+	}
 }
