@@ -68,35 +68,68 @@ func main() {
 func findInvalidNumbers(start int, end int) int {
 	var sum = 0
 
+	// fmt.Printf("Start: %d\nEnd: %d\n", start, end)
 	for i := start; i <= end; i++ {
 		// fmt.Printf("checking num: %d\n", i)
 		iString := strconv.Itoa(i)
 
-		if reverse(iString) == iString {
-			firstNum := iString[0]
-			good := true
-			for i := 1; i < len(iString); i++ {
-				if iString[i] != firstNum {
-					good = false
-					break
-				}
-			}
-
-			if good {
-				fmt.Println(i)
-				sum += i
-			}
-		} else if len(iString)%2 == 0 {
-			half1, half2 := splitStringInHalf(iString)
-
-			if half1 == half2 {
-				fmt.Println(i)
-				sum += i
-			}
+		if checkString(iString) {
+			fmt.Printf("Found: %d\n", i)
+			sum += i
 		}
+		// else if len(iString)%2 == 0 {
+		// half1, half2 := splitStringInHalf(iString)
+
+		// if half1 == half2 {
+		// fmt.Println(i)
+		// sum += i
+		// }
+		// }
 	}
 
 	return sum
+}
+
+func checkString(testString string) bool {
+
+	// fmt.Printf("Test String: %s\n", testString)
+
+	for i := 1; i <= len(testString)/2; i++ {
+		subString := testString[:i]
+		if checkSubString(subString, testString) {
+			return true
+		}
+	}
+
+	return false
+}
+
+func checkSubString(subString string, testString string) bool {
+
+	chucks := chunkString(testString, len(subString))
+
+	// fmt.Printf("SubString: %s\n", subString)
+
+	for _, chuck := range chucks {
+		// fmt.Printf("Chuck: %s\n", chuck)
+		if chuck != subString {
+			return false
+		}
+	}
+
+	return true
+}
+
+func chunkString(s string, chunkSize int) []string {
+	var chunks []string
+	for i := 0; i < len(s); i += chunkSize {
+		end := i + chunkSize
+		if end > len(s) {
+			end = len(s)
+		}
+		chunks = append(chunks, s[i:end])
+	}
+	return chunks
 }
 
 func reverse(s string) string {
