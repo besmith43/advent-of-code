@@ -72,7 +72,21 @@ func findInvalidNumbers(start int, end int) int {
 		// fmt.Printf("checking num: %d\n", i)
 		iString := strconv.Itoa(i)
 
-		if len(iString)%2 == 0 {
+		if reverse(iString) == iString {
+			firstNum := iString[0]
+			good := true
+			for i := 1; i < len(iString); i++ {
+				if iString[i] != firstNum {
+					good = false
+					break
+				}
+			}
+
+			if good {
+				fmt.Println(i)
+				sum += i
+			}
+		} else if len(iString)%2 == 0 {
 			half1, half2 := splitStringInHalf(iString)
 
 			if half1 == half2 {
