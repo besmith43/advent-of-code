@@ -1,0 +1,11 @@
+511 is too low
+
+583 is too high
+
+I was off by 17
+the correct answer was 528
+
+I'll need to come back later to see what I did wrong
+
+
+

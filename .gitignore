@@ -1,1 +1,10 @@
+.DS_Store
 go.sum
+
+ownership_code.txt
+
+bin/
+obj/
+target/
+
+
